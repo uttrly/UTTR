@@ -1,10 +1,16 @@
 # Project Title
 
-One Paragraph of project description goes here
+This is a web application that aims to help individuals acheive their goals by setting up binding Commitment Contracts. Commitment contracts created through out web app is a written agreement that includes a goal, something at stake and a referee. 
+
+For social media users, they can opt into announcing their progress using their social network. The power of peer support/pressure will increase effectiveness of the contracts.
+
+Here is the link to our latest storyboard: https://balsamiq.cloud/slcxc2l/pdvu3y8/r2278
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+Our latest live system can be found here:link.
 
 ### Prerequisites
 
@@ -57,6 +63,14 @@ Give an example
 Add additional notes about how to deploy this on a live system
 
 ## Built With
+* HTML5
+* CSS/Bootstrap
+* JavaScript/JQuery
+* Node.js
+* Express
+* Handlebars
+* MySQL
+* Sequelize
 
 
 
