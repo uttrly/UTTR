@@ -1,10 +1,29 @@
 # Project Title
 
-This is a web application that aims to help individuals acheive their goals by setting up binding Commitment Contracts. Commitment contracts created through out web app is a written agreement that includes a goal, something at stake and a referee. 
+This is a web application that aims to help individuals acheive their goals by setting up binding Commitment Contracts.
 
-For social media users, they can opt into announcing their progress using their social network. The power of peer support/pressure will increase effectiveness of the contracts.
+Each commitment contract has the following components:
+  1. Title of the goal
+  2. Description of the goal
+  3. Type: one-time or on-going
+  4. Start date
+  5. Duration (in weeks) if on-going
+  6. Referee
+     > You asign a referee who would have the ultimate power to determine if you are sucessful for each week.
+  7. Stake
+     > This is an embarrassing video/photo of yourself that you submit to us.
+     > Should you fail to acheive an 80% sucess rate. This information will be emailed to your referee for dispersement.
+  8. Points (rewarded by UTTR admin)
+     > If you have met your goal for the week, you will be rewarded 7 points.
+     > You can then use these points to enter our UTTR LOTTO.
 
-Here is the link to our latest storyboard: https://balsamiq.cloud/slcxc2l/pdvu3y8/r2278
+The goal-setter would be able to enter comments and submit photos while the goal is in the active state. Each week, the goal-setter is required to self report if they are sucessful on the weekly basis. The sucess status can be updated by the goal's referee should they disagree with goal-setter's self-evaluation.
+
+The commitment contract is marked complete when it reaches the end of contract duration.
+
+For social media users, they can also opt into announcing their progress using their social network. The power of peer support/pressure will increase effectiveness of the contracts.
+
+For details on the view including the user dashboard refer to our latest storyboard: https://balsamiq.cloud/slcxc2l/pdvu3y8/r2278.
 
 ## Getting Started
 
