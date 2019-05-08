@@ -9,7 +9,7 @@ Each commitment contract has the following components:
   4. Start date
   5. Duration (in weeks) if on-going
   6. Referee
-     You asign a referee who would have the ultimate power to determine if you are sucessful for each week.
+      You asign a referee who would have the ultimate power to determine if you are sucessful for each week.
   7. Stake
      This is an embarrassing video/photo of yourself that you submit to us. Should you fail to acheive an 80% sucess rate. This information will be emailed to your referee for dispersement.
   8. Points (rewarded by UTTR admin)
