@@ -2,19 +2,19 @@
 
 This is a web application that aims to help individuals acheive their goals by setting up binding Commitment Contracts.
 
-Each commitment contract has the following components:
-1. Title of the goal
-2. Description of the goal
-3. Type: one-time or on-going
-4. Start date
-5. Duration (in weeks) if on-going
-6. Referee
+**Each commitment contract has the following components:**
+1. **Title** of the goal
+2. **Description** of the goal
+3. Type: **one-time** or **on-going**
+4. **Start date**
+5. **Duration** (in weeks) if on-going
+6. **Referee**
 
    You asign a referee who would have the ultimate power to determine if you are sucessful for each week.
-7. Stake
+7. **Stake**
 
    This is an embarrassing video/photo of yourself that you submit to us. Should you fail to acheive an 80% sucess rate. This information will be emailed to your referee for dispersement.
-8. Points (rewarded by UTTR admin)
+8. **Points** (rewarded by UTTR admin)
 
    If you have met your goal for the week, you will be rewarded 7 points. You can then use these points to enter our UTTR LOTTO. We announce a new winner each week.
 
