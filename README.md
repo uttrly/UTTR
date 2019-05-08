@@ -1,4 +1,4 @@
-# Project Title
+# UTTR (Up To The Right)
 
 This is a web application that aims to help individuals acheive their goals by setting up binding Commitment Contracts.
 
