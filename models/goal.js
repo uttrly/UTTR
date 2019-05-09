@@ -1,4 +1,4 @@
-module.exports = function (sequelize, DataTypes) {
+module.exports = function(sequelize, DataTypes) {
   var Goal = sequelize.define("Goal", {
     goalName: {
       type: DataTypes.STRING,
@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlphanumeric: true,
         notNull: true,
         notEmpty: true,
-        len: [1, 30]
+        len: [1,30]
       }
     },
     description: {
@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
         isAlphanumeric: true,
         notNull: true,
         notEmpty: true,
-        len: [1, 300]
+        len: [1,300]
       }
     },
     oneTime: {
@@ -44,7 +44,7 @@ module.exports = function (sequelize, DataTypes) {
         isEmail: true,
         notNull: true,
         notEmpty: true,
-      }
+      } 
     },
     stake: {
       type: DataTypes.STRING,
@@ -52,55 +52,50 @@ module.exports = function (sequelize, DataTypes) {
       validate: {
         notNull: true,
         notEmpty: true,
-      }
+      }  
     },
     points: {
       type: DataTypes.INTEGER,
-      default: 0,
-      allowNull: false,
+      defaultValue: 0,
       validate: {
         isInt: true,
+        notNull: true,
         notEmpty: true
-      }
+      } 
     },
     status: {
       type: DataTypes.BOOLEAN, //0: false, 1: true
-      default: 0,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
+      defaultValue: 0
       }
-    },
-    refId: { // for setting up referee association
-      type: DataTypes.INTEGER
     }
   });
 
-  // //Adds OwnerId column to `goals` table
-  // // OwnerId should equal to the `users` table id of the owner
-  // Goal.associate = function (models) {
-  //     Goal.belongsTo(models.User, { as: "Owner" });
-  // };
+  //Adds OwnerId column to `goals` table
+  // OwnerId should equal to the `users` table id of the owner
+  Goal.associate = function(models) {
+    Goal.belongsTo(models.User, {as: "Owner"});
+  };  
 
-  // //Adds RefereeId column to `goals` table
-  // // RefereeId should equal to the `users` table of the referee
-  // Goal.associate = function (models) {
-  //     Goal.belongsTo(models.User, { as: "Referee" });
-  // };
+  //Adds RefereeId column to `goals` table
+  // RefereeId should equal to the `users` table of the referee
+  Goal.associate = function(models) {
+    Goal.belongsTo(models.User, {as: "Referee"});
+  };    
 
+  
+  //HasMany associations
+  Goal.associate = function(models) {
+    Goal.hasMany(models.Comment);
+  }; 
+ 
+  Goal.associate = function(models) {
+    Goal.hasMany(models.Report);
+  }; 
 
-  // //HasMany associations
-  // Goal.associate = function (models) {
-  //     Goal.hasMany(models.Comment);
-  // };
-
-  // Goal.associate = function (models) {
-  //     Goal.hasMany(models.Report);
-  // };
-
-  // Goal.associate = function (models) {
-  //     Goal.hasMany(models.Photo);
-  // };
+  Goal.associate = function(models) {
+    Goal.hasMany(models.Photo);
+  };  
 
   return Goal;
 };
+
