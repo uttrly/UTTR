@@ -1,0 +1,44 @@
+  
+    {{!-- sign up form --}}
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card card-signin flex-row my-5"> 
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign Up</h5>
+
+            
+            <form class="form-signin" id="signupForm">
+              <div class="form-label-group">
+                <label for="inputUsername">Username</label>
+                <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+              </div>
+
+              <div class="form-label-group">
+                 <label for="inputEmail">Email address</label>
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+              </div>
+              
+              <div class="form-label-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+              </div>
+              
+              <div class="form-label-group">
+                <label for="inputConfirmPassword">Confirm password</label>
+                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
+              </div>
+              <br>
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id="register">Register</button>
+              <a class="d-block text-center mt-2 small" href="/login">Log In</a>
+              <hr class="my-4">
+
+              {{!-- facebook and google sign up option --}}
+            </form>
+            <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign up with Google</button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign up with Facebook</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
