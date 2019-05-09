@@ -76,18 +76,31 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  //for setting up owner
+  //Adds OwnerId column to `goals` table
+  // OwnerId should equal to the `users` table id of the owner
   Goal.associate = function(models) {
-    Goal.hasOne(models.User);
+    Goal.belongsTo(models.User, {as: "Owner"});
   };  
 
+  //Adds RefereeId column to `goals` table
+  // RefereeId should equal to the `users` table of the referee
+  Goal.associate = function(models) {
+    Goal.belongsTo(models.User, {as: "Referee"});
+  };    
+
+  
+  //HasMany associations
   Goal.associate = function(models) {
     Goal.hasMany(models.Comment);
   }; 
-
+ 
   Goal.associate = function(models) {
     Goal.hasMany(models.Report);
   }; 
+
+  Goal.associate = function(models) {
+    Goal.hasMany(models.Photo);
+  };  
 
   return Goal;
 };

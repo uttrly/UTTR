@@ -18,17 +18,15 @@ module.exports = function(sequelize, DataTypes) {
     },
   });
 
+  //Adds `UserId` column to `reports` table
   Report.associate = function(models) {
-    Report.hasOne(models.User);
+    Report.belongsTo(models.User);
   };  
 
+  //Adds `GoalId` column to `reports` table
   Report.associate = function(models) {
-    Report.hasMany(models.Comment);
+    Report.belongsTo(models.Goal);
   }; 
-
-  Report.associate = function(models) {
-    Report.hasMany(models.Report);
-  }; 
-
+  
   return Report;
 };
