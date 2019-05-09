@@ -6,8 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true,
       validate: {
         isAlphanumeric: true,
-        notNull: true,
-        notEmpty: true,
         len: [5,30]
       }
     },
@@ -16,16 +14,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         isEmail: true,
-        notNull: true,
-        notEmpty: true,
       }  
     },
     password: {
       type: DataTypes.STRING,
       allowNull: true,
       validate: {
-        notNull: true,
-        notEmpty: true,
         len: [6,10]
       }  
     },
@@ -35,8 +29,6 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         isInt: true,
         len: [10],
-        notNull: true,
-        notEmpty: true
       } 
     },
     photo: {
@@ -63,6 +55,8 @@ module.exports = function(sequelize, DataTypes) {
   User.associate = function(models) {
     User.hasMany(models.Photo);
   };  
+
+  
 
   return User;
 };

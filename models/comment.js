@@ -18,15 +18,21 @@ module.exports = function(sequelize, DataTypes) {
     },
   });
 
-  //Adds `UserId` column to `comments` table
+  //Adds `UserId` column to `Comments` table
   Comment.associate = function(models) {
     Comment.belongsTo(models.User);
   };  
 
-  //Adds `GoalId` column to `comments` table
+  //Adds `GoalId` column to `Comments` table
   Comment.associate = function(models) {
     Comment.belongsTo(models.Goal);
   }; 
+
+  Comment.associate = function(models) {
+    Comment.hasMany(models.Photo);
+  }; 
+
+
   
   return Comment;
 };
