@@ -56,7 +56,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     points: {
       type: DataTypes.INTEGER,
-      default: 0,
+      defaultValue: 0,
       validate: {
         isInt: true,
         notNull: true,
@@ -65,14 +65,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     status: {
       type: DataTypes.BOOLEAN, //0: false, 1: true
-      default: 0,
-      validate: {
-        notNull: true,
-        notEmpty: true,
+      defaultValue: 0
       }
-    },
-    refId: { // for setting up referee association
-      type: DataTypes.INTEGER
     }
   });
 
@@ -104,3 +98,4 @@ module.exports = function(sequelize, DataTypes) {
 
   return Goal;
 };
+
