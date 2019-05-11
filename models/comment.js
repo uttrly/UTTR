@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   var Comment = sequelize.define("Comment", {
-    message: {
+    text: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -8,12 +8,21 @@ module.exports = function(sequelize, DataTypes) {
         notEmpty: true
       }
     },
-    authorType: {
-      type: DataTypes.BOOLEAN, //0: user, 1: referee
+    photo: {
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notNull: true,
         notEmpty: true
+      }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isAlphanumeric: true,
+        len: [5, 30]
       }
     }
   });

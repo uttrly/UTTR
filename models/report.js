@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   var Report = sequelize.define("Report", {
-    evaluation: {
+    sucess: {
       type: DataTypes.BOOLEAN, //0: false, 1: true
       allowNull: false,
       validate: {
@@ -14,6 +14,22 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notNull: true,
         notEmpty: true
+      }
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isAlphanumeric: true,
+        len: [5, 30]
+      }
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isInt: true
       }
     }
   });

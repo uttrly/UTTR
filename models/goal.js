@@ -4,7 +4,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlphanumeric: true,
         notNull: true,
         notEmpty: true,
         len: [1, 30]
@@ -14,7 +13,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlphanumeric: true,
         notNull: true,
         notEmpty: true,
         len: [1, 300]
@@ -66,13 +64,25 @@ module.exports = function(sequelize, DataTypes) {
         notNull: true,
         notEmpty: true
       }
-    }
+    },
+    stake: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
+    },    
   });
 
-  //Adds OwnerId column to `goals` table
-  // OwnerId should equal to the `users` table id of the owner
   Goal.associate = function(models) {
-    Goal.belongsTo(models.User);
+    Goal.belongsToMany(models.User, {
+      through: {
+        model: "userGoals",
+        unique: false
+      },
+      foreignKey: "GoalId",
+    })  
   };
 
   Goal.associate = function(models) {
@@ -81,14 +91,6 @@ module.exports = function(sequelize, DataTypes) {
 
   Goal.associate = function(models) {
     Goal.hasMany(models.Report);
-  };
-
-  Goal.associate = function(models) {
-    Goal.hasOne(models.Stake);
-  };
-
-  Goal.associate = function(models) {
-    Goal.hasOne(models.Referee);
   };
 
   return Goal;
