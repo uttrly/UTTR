@@ -95,9 +95,9 @@ module.exports = function(sequelize, DataTypes) {
     Goal.hasMany(models.Photo);
   };  
 
-  Goal.associate = funciton(models) {
+  Goal.associate = function(models) {
     Goal.hasOne(models.Stake);
-  }
+  };
 
   return Goal;
 };
