@@ -1,0 +1,64 @@
+.lead {
+    font-size: 50px;
+    color: black
+
+}
+
+.font-weight-light
+{
+    
+font-style: italic;
+font-size: 50px;
+background-color: blue
+
+
+}
+body {
+    background-color:lightgreen;
+    background-image:url("https://image.freepik.com/free-vector/businessman-flying-forward_1258-3192.jpg");
+}
+
+.card-body{
+    background-color: chocolate
+}
+
+.navbar 
+{
+    background-color: lightgreen
+}
+.navbar-brand{
+
+    font-size: 30px;
+    font-style: oblique;
+    color: orange
+}
+
+.collapse {
+background-color:greenyellow
+}
+
+.lead2{
+    font-size: 35px
+}
+.container
+{
+    color: black
+}
+
+.nav-link{
+
+    background-color: blue
+}
+.navbar-toggler
+{
+background-color: aquamarine
+}
+
+.navbar navbar-expand-lg navbar-light bg-light shadow fixed-top
+{
+    background-color: crimson
+}
+.btn btn-lg btn-primary btn-block text-uppercase
+{
+    background-color: dimgrey
+}
