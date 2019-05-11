@@ -32,8 +32,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATEONLY,
       allowNull: false,
       validate: {
-        notNull: true,
-        notEmpty: true,
         isDate: true
       }
     },
@@ -42,8 +40,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         isEmail: true,
-        notNull: true,
-        notEmpty: true,
       } 
     },
     stake: {
@@ -59,13 +55,15 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: 0,
       validate: {
         isInt: true,
-        notNull: true,
-        notEmpty: true
       } 
     },
     status: {
       type: DataTypes.BOOLEAN, //0: false, 1: true
-      defaultValue: 0
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+       notNull: true,
+       notEmpty: true 
       }
     }
   });
@@ -73,13 +71,13 @@ module.exports = function(sequelize, DataTypes) {
   //Adds OwnerId column to `goals` table
   // OwnerId should equal to the `users` table id of the owner
   Goal.associate = function(models) {
-    Goal.belongsTo(models.User, {as: "Owner"});
+    Goal.belongsTo(models.User);
   };  
 
   //Adds RefereeId column to `goals` table
   // RefereeId should equal to the `users` table of the referee
   Goal.associate = function(models) {
-    Goal.belongsTo(models.User, {as: "Referee"});
+    Goal.belongsTo(models.Referee);
   };    
 
   

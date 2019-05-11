@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define("User", {
     username: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         isAlphanumeric: true,
         len: [5,30]
@@ -18,14 +18,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
       validate: {
         len: [6,10]
       }  
     },
     phoneNumber: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       validate: {
         isInt: true,
         len: [10],
@@ -36,10 +36,14 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  //Should this association be written differently?
-  //As goals could have either OwnerId or RefereeId
   User.associate = function(models) {
     User.hasMany(models.Goal);
+  };  
+
+  //What this says is that User has One RefereeId
+  //Not the user has one referee for all goals
+  User.associate = function(models) {
+    User.hasOne(models.Referee);
   };  
 
   //Didn't set cascade on delete on these as `Report` and `Comment` should still exist even without `User`.
@@ -55,8 +59,6 @@ module.exports = function(sequelize, DataTypes) {
   User.associate = function(models) {
     User.hasMany(models.Photo);
   };  
-
-  
 
   return User;
 };

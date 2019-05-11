@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "root",
-    "database": "UTTRdb",
+    "database": "uttrdb",
     "host": "localhost",
     "dialect": "mysql"
   },
