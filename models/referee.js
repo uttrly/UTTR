@@ -11,12 +11,12 @@ module.exports = function(sequelize, DataTypes) {
 
   //Adds UserId column to `referees` table
   Referee.associate = function(models) {
-    Referee.belongsTo(models.User);
+    Referee.belongsTo(models.Goal);
   };
 
   //HasMany associations
   Referee.associate = function(models) {
-    Referee.hasMany(models.Goal);
+    Referee.hasMany(models.Refport);
   };
 
   return Referee;

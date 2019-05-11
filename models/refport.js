@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Report = sequelize.define("Report", {
+  var Refport = sequelize.define("Refport", {
     evaluation: {
       type: DataTypes.BOOLEAN, //0: false, 1: true
       allowNull: false,
@@ -18,10 +18,10 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  //Adds `GoalId` column to `reports` table
-  Report.associate = function(models) {
-    Report.belongsTo(models.Goal);
+  //Adds `GoalId` column to `Refports` table
+  Refport.associate = function(models) {
+    Refport.belongsTo(models.Referee);
   };
 
-  return Report;
+  return Refport;
 };

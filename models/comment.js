@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true,
+        notEmpty: true
       }
     },
     authorType: {
@@ -13,26 +13,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true,
+        notEmpty: true
       }
-    },
+    }
   });
-
-  //Adds `UserId` column to `Comments` table
-  Comment.associate = function(models) {
-    Comment.belongsTo(models.User);
-  };  
 
   //Adds `GoalId` column to `Comments` table
   Comment.associate = function(models) {
     Comment.belongsTo(models.Goal);
-  }; 
+  };
 
-  Comment.associate = function(models) {
-    Comment.hasMany(models.Photo);
-  }; 
-
-
-  
   return Comment;
 };

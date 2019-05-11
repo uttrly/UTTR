@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
         isAlphanumeric: true,
         notNull: true,
         notEmpty: true,
-        len: [1,30]
+        len: [1, 30]
       }
     },
     description: {
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         isAlphanumeric: true,
         notNull: true,
         notEmpty: true,
-        len: [1,300]
+        len: [1, 300]
       }
     },
     oneTime: {
@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       validate: {
         notNull: true,
-        notEmpty: true,
+        notEmpty: true
       }
     },
     startDate: {
@@ -39,8 +39,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isEmail: true,
-      } 
+        isEmail: true
+      }
     },
     duration: {
       type: DataTypes.INTEGER,
@@ -49,22 +49,22 @@ module.exports = function(sequelize, DataTypes) {
         notNull: true,
         notEmpty: true,
         isInt: true
-      }  
+      }
     },
     points: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
       validate: {
-        isInt: true,
-      } 
+        isInt: true
+      }
     },
     status: {
       type: DataTypes.BOOLEAN, //0: false, 1: true
       defaultValue: 0,
       allowNull: false,
       validate: {
-       notNull: true,
-       notEmpty: true 
+        notNull: true,
+        notEmpty: true
       }
     }
   });
@@ -73,32 +73,23 @@ module.exports = function(sequelize, DataTypes) {
   // OwnerId should equal to the `users` table id of the owner
   Goal.associate = function(models) {
     Goal.belongsTo(models.User);
-  };  
+  };
 
-  //Adds RefereeId column to `goals` table
-  // RefereeId should equal to the `users` table of the referee
-  Goal.associate = function(models) {
-    Goal.belongsTo(models.Referee);
-  };    
-
-  
-  //HasMany associations
   Goal.associate = function(models) {
     Goal.hasMany(models.Comment);
-  }; 
- 
-  Goal.associate = function(models) {
-    Goal.hasMany(models.Report);
-  }; 
+  };
 
   Goal.associate = function(models) {
-    Goal.hasMany(models.Photo);
-  };  
+    Goal.hasMany(models.Report);
+  };
 
   Goal.associate = function(models) {
     Goal.hasOne(models.Stake);
   };
 
+  Goal.associate = function(models) {
+    Goal.hasOne(models.Referee);
+  };
+
   return Goal;
 };
-
