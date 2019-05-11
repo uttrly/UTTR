@@ -42,12 +42,13 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true,
       } 
     },
-    stake: {
-      type: DataTypes.STRING,
+    duration: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
         notNull: true,
         notEmpty: true,
+        isInt: true
       }  
     },
     points: {
@@ -93,6 +94,10 @@ module.exports = function(sequelize, DataTypes) {
   Goal.associate = function(models) {
     Goal.hasMany(models.Photo);
   };  
+
+  Goal.associate = funciton(models) {
+    Goal.hasOne(models.Stake);
+  }
 
   return Goal;
 };
