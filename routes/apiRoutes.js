@@ -36,7 +36,7 @@ module.exports = function (app) {
       where: {
         id: req.params.id
       },
-      include: [db.Comment]
+      include: [{all: true}]
     }).then((data)=>{
       let goalObj = {goal: data}
       console.log(goalObj)

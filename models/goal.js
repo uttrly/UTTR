@@ -87,11 +87,9 @@ module.exports = function(sequelize, DataTypes) {
 
   Goal.associate = function(models) {
     Goal.hasMany(models.Comment);
-  };
-
-  Goal.associate = function(models) {
     Goal.hasMany(models.Report);
   };
+
 
   return Goal;
 };
