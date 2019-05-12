@@ -9,3 +9,4 @@
   };
   
   firebase.initializeApp(firebaseConfig);
+  var defaultStorage = firebase.storage();

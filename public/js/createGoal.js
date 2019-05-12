@@ -1,29 +1,29 @@
 
 
 $(document).ready(function () {
+  $("#goalForm").on("submit", uploadPhoto);
 
-  $("#goalForm").on("submit", newGoal);
-
-  function newGoal(event) {
+  function newGoal(stake) {
     event.preventDefault();
-
-    var newGoal = {
+    
+    var goal = {
       goalName: $("#title").val().trim(),
       description: $("#description").val().trim(),
       oneTime: $("input[name=goalType]:checked").val(),
       startDate: $("#startDate").val().trim(),
       refereeEmail: $("#refEmail").val().trim(),
       duration: $("#duration").val().trim(),
+      stake: stake
     }
 
-    var valid = isValid(newGoal)
+    var valid = isValid(goal)
 
     if (!valid) {
       return console.log("not valid input")
     }
     
-    $.post("/api/challenge", newGoal, () => {
-      console.log(`${newGoal} posted to server`)
+    $.post("/api/challenge", goal, () => {
+      console.log(`${goal} posted to server`)
     })
   }
 
@@ -38,13 +38,23 @@ $(document).ready(function () {
     return valid
   }
 
-  function uploadPhoto() {
-    let storageRef = firebase.storage().ref('stakes')
-    let fileUpload = document.getElementById("stake")
-  
-    fileUpload.addEventListener('change', function(evt) {
-        let firstFile = evt.target.files[0] // upload the first file only
-        storageRef.put(firstFile)
-    })  
+  function uploadPhoto(event) {
+    event.preventDefault()
+    var photo = document.getElementById('stake').files[0]
+    var fileName = uuidv4()
+
+    var stakeStorage = defaultStorage.ref(fileName)
+    stakeStorage.put(photo).then(function(){
+      newGoal(fileName)
+    })
+
   }
+
+  function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+  
 });

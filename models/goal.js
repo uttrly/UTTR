@@ -67,11 +67,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     stake: {
       type: DataTypes.STRING,
-      // allowNull: false,
-      // validate: {
-      //   notNull: true,
-      //   notEmpty: true
-      // }
+      allowNull: false,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     },    
   });
 
