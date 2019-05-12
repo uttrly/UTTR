@@ -14,6 +14,9 @@ module.exports = function (app, passport) {
     }
     ));
 
+    app.get("/createGoal", isLoggedIn, authController.createGoal)
+
+    app.post("/api/challenge", isLoggedIn, authController.newChallenge)
 
     app.get('/dashboard', isLoggedIn, authController.dashboard);
 

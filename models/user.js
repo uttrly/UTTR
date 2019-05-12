@@ -8,27 +8,29 @@ module.exports = function (sequelize, DataTypes) {
     },
     firstName: {
       type: DataTypes.STRING,
-      notEmpty: true
+      allowNull: false
     },
     lastName: {
       type: DataTypes.STRING,
-      notEmpty: true
+      allowNull: false
     },
     username: {
       type: DataTypes.STRING,
+      allowNull: false
     },
     about: {
       type: DataTypes.TEXT
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         isEmail: true
       }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     // phoneNumber: {
     //   type: DataTypes.INTEGER,

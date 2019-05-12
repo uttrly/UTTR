@@ -39,12 +39,12 @@ $(document).ready(function () {
   }
 
   function uploadPhoto() {
-    let storageRef = firebase.storage().ref('photos/myPictureName')
-    let fileUpload = document.getElementById("cameraInput")
+    let storageRef = firebase.storage().ref('stakes')
+    let fileUpload = document.getElementById("stake")
   
     fileUpload.addEventListener('change', function(evt) {
         let firstFile = evt.target.files[0] // upload the first file only
-        let uploadTask = storageRef.put(firstFile)
+        storageRef.put(firstFile)
     })  
   }
 });
