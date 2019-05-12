@@ -8,29 +8,36 @@
             <h5 class="card-title text-center">Sign Up</h5>
 
             
-            <form class="form-signin" id="signupForm">
+            <form class="form-signin" id="signup" name="signup" method="post" action="/signup">
               <div class="form-label-group">
-                <label for="inputUsername">Username</label>
-                <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
+                <label for="firstname">First Name</label>
+                <input type="text" name="firstname" class="form-control" placeholder="firstname" required autofocus>
+              </div>
+
+                <div class="form-label-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" name="lastname" class="form-control" placeholder="lastname" required autofocus>
               </div>
 
               <div class="form-label-group">
-                 <label for="inputEmail">Email address</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
+                <label for="email">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="Username" required autofocus>
+              </div>
+
+              <div class="form-label-group">
+                 <label for="email">Email address</label>
+                <input type="email" name="email" class="form-control" placeholder="Email address" required>
               </div>
               
               <div class="form-label-group">
-                <label for="inputPassword">Password</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <label for="passpord">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
               </div>
               
-              <div class="form-label-group">
-                <label for="inputConfirmPassword">Confirm password</label>
-                <input type="password" id="inputConfirmPassword" class="form-control" placeholder="Password" required>
-              </div>
               <br>
-              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id="register">Register</button>
-              <a class="d-block text-center mt-2 small" href="/dashboard">Log In</a>
+              <input class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" value="Sign Up" />
+
+              <a class="d-block text-center mt-2 small" href="/signin">Log In Here</a>
               <hr class="my-4">
 
               {{!-- facebook and google sign up option --}}
