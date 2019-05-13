@@ -1,5 +1,5 @@
 var authController = require('../controllers/authcontroller.js');
-
+var db = require("../models");
 module.exports = function (app, passport) {
 
     app.get('/signup', authController.signup);
@@ -18,10 +18,21 @@ module.exports = function (app, passport) {
 
     app.post("/api/challenge", isLoggedIn, authController.newChallenge)
 
-    app.get('/dashboard', isLoggedIn, authController.dashboard);
+    app.get('/dashboard', isLoggedIn,authController.dashboard);
+
+    app.get('/dashboard/:status', isLoggedIn,authController.dashboard);
+    // authController.dashboard);
 
 
-    app.get('/logout', authController.logout);
+    // app.get("/dashboard/:status", isLoggedIn, function (req, res) {
+    //     if (req.params.status == "referee") {
+    //         //console.log(req)
+    //         authController.dashboard
+    //     }
+    //   });
+
+
+    app.get('/signout', authController.signout);
 
 
     app.post('/signin', passport.authenticate('local-signin', {

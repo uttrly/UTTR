@@ -1,129 +1,96 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand mr-1" href="/">UTTER</a>
-     <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-      <i class="fas fa-bars"></i>
-    </button>
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <!-- logout option -->  
-      <li class="nav-item dropdown no-arrow">
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-        </div>
-      </li>
-    </ul>
-                <a class="navbar-brand mr-1" href="/login">logout</a>
 
-</nav>
+<div class="container">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h1">Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+    </div>
+  </div>
 
-        <!-- Sidebar -->
-<div class="sidebar">
-  <nav class="sidebar-nav">
-    <ul class="nav">
-      <li class="nav-title">Username goes here {{this.username}} </li>
-      <li class="nav-item active">
-            <a class="nav-link" href="#">
-              <i class="fas fa-fw fa-tachometer-alt"></i>
-              <span>Dashboard </span>
-            </a>
-      </li>
-      <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i ></i>
-              <span>  Challenges </span></a>
-      </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i ></i>
-              <span> Referees </span></a>
-      </li>
-    </ul>
-  </nav>
-</div>
-  
-    <!-- Active / Completed Challenges-->
-    <div class="container">
-       <div class="container-fluid">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a href="#">Active Challenges</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a href="#">Completed Challenges</a>
-              </li>
-                 <li class="breadcrumb-item">
-                <a href="/createGoal">Create a Challenge</a>
-              </li>
-            </ol>
-
-            <!-- ALL CHALLENGES -->
-            <div class="card mb-3">
-              <div class="card-header">
-                All Challenges : 
-              </div>
-              <div class="ccard-body">
-                <div class="col-md-12 blog-container" id="allChallenges-container">
-                    <br>
-                        {{#each challenge}}
-                        <div class="card mb-3">
-                          <div class="card-header"> {{this.title}} </div>
-                          <div class="card-body"> 
-                              <a href="#"> More info</a>           
-                          </div>
-                        </div>
-                        {{/each}}
-                        {{#if this.active}} <div class="card mb-3">
-                          <div class="card-header"> {{this.title}} </div>
-                          <div class="card-body"> 
-                              <a href="#"> More info</a>           
-                          </div>
-                        </div>
-                        {{/if}}
-                
-                         <div class="card mb-3">
-                          <div class="card-header"> {{this.title}} </div>
-                          <div class="card-body"> 
-                              <a href="#"> More info</a>           
-                          </div>
-                        </div>
-                    </div>
-                </div> 
-              </div>
-          </div>
-      </div>
+  <h2 class="h2">UTTR Points</h2>
 
 
-
-
-
-          <!-- Sticky Footer -->
-          <footer class="sticky-footer">
-            <div class="container my-auto">
-              <div class="copyright text-center my-auto">
-                <span>Copyright © UTTER 2019</span>
-              </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-6">
+      <div class="account-points-update panel panel-primary mouseover-animated-pulse click-animated-jello"
+        style="cursor:pointer;">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-3"><i class="fas fa-bolt fa-5x"></i></div>
+            <div class="col-sm-9 text-right">
+              <div class="account-points-earned huge text-right">{{points}}</div>
+              <div>Earned Points!</div>
+              <h6>Click to enter to win a car</h6>
             </div>
-          </footer>
-
-
-
-  <!-- Logout Modal-->
-  <div class="modal" tabindex="-1" role="dialog" id="logoutModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Log Out</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Select "Yes" if you are ready to end your session</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2 class="h2">{{#if owner}} My Goals {{else}} Refereeing {{/if}}</h2>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group mr-2">
+        <button class="btn btn-sm btn-outline" onclick="location.href='/dashboard';"><i class="fas fa-th-list"></i></i>
+          My Goals</button>
+        <button class="btn btn-sm btn-outline" onclick="location.href='/dashboard/referee';"><i class="far fa-eye"></i>
+          Referee</button>
+      </div>
+
+      <div class="btn-group mr-2">
+        <button class="btn btn-sm btn-outline" onclick="location.href='/creategoal';"><i class="far fa-plus-square"></i> Add New Goal</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    {{#if owner}}
+    <div class="col-md-2">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="/dashboard">
+            <i class="fas fa-chart-line"></i>
+            Active <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+
+          <a class="nav-link" href="/dashboard/complete">
+
+            <i class="far fa-check-square"></i> Complete
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10">
+
+    {{else}}
+    <div class="col-md-12">
+    {{/if}}
+
+      <div class="list-group scrollable">
+
+        {{#each goals}}
+        {{!-- {{#if userType}} --}}
+
+        <a href="/challenge/{{id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1 indigo-text">{{name}}</h5>
+            <small class="cyan-text">{{duration}}</small>
+          </div>
+          <p class="mb-1">{{description}}</p>
+          <small>Created: {{createDate}}</small>
+        </a>
+
+        </li>
+        {{!-- {{/if}} --}}
+        {{/each}}
+
+
+      </div>
+    </div>
+  </div>
+
+
 </div>
