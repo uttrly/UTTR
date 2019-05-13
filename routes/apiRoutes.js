@@ -16,4 +16,12 @@ module.exports = function (app) {
 //       res.render("challenge", goalObj)
 //     })
 //   })
-// }
+
+// Post Request to save Report to Database
+app.post("/api/report", (req, res) => {
+    db.Report.create(req.body).then((report) => {
+        console.log(report);
+        res.redirect("/report/"+ report.userId)
+    })
+})
+}

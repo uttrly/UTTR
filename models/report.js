@@ -25,13 +25,13 @@ module.exports = function(sequelize, DataTypes) {
     //     len: [5, 30]
     //   }
     // },
-    // userId: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    //   validate: {
-    //     isInt: true
-    //   }
-    // },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        isInt: true
+      }
+    },
     week: {
       type: DataTypes.INTEGER,
       allowNull: false,
