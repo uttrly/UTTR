@@ -32,10 +32,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     phoneNumber: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-      }
+      allowNull: true
     },
     last_login: {
       type: DataTypes.DATE
