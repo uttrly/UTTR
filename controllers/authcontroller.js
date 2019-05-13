@@ -120,8 +120,7 @@ exports.newChallenge = function (req, res) {
           relationship: "Owner"
       }
       db.userGoals.create(relationshipData)
-      .then(() => {
-          res.redirect('/dashboard') // not redireting
-      })
+    }).then(() =>{
+        res.send({redirect: "/dashboard"})
     })
 }

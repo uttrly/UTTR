@@ -20,8 +20,9 @@ $(document).ready(function () {
       return console.log("not valid input")
     }
     
-    $.post("/api/challenge", goal, () => {
-      console.log(`${goal} posted to server`)
+    $.post("/api/challenge", goal, (data) => {
+      console.log(`${data} posted to server`)
+      window.location = data.redirect
     })
   }
 
