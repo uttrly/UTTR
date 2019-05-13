@@ -117,11 +117,11 @@ exports.newChallenge = function (req, res) {
       var relationshipData = {
           GoalId: goal.dataValues.id,
           UserId: req.user.id,
-          relationship: "owner"
+          relationship: "Owner"
       }
       db.userGoals.create(relationshipData)
       .then(() => {
-          res.redirect("/dasbord")
+          res.redirect('/dashboard') // not redireting
       })
     })
 }
