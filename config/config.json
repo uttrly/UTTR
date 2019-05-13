@@ -4,17 +4,22 @@
     "password": "root",
     "database": "uttrdb",
     "host": "localhost",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": "3306"
   },
   "test": {
-    "username": "root",
+    "username": "",
     "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "database": "",
+    "host": "",
     "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "rtzsaka6vivj2zp1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "username": "",
+    "password": null,
+    "database": "",
+    "host": "127.0.0.1",
     "dialect": "mysql"
   }
+
 }

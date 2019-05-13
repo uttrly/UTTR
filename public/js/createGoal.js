@@ -1,34 +1,50 @@
+
+
 $(document).ready(function () {
 
-  // sign up 
-  var inputUsername = $("#inputUsername");
-  var inputEmail = $("#inputEmail");
-  var inputPassword = $("#inputPassword");
-  // var inputPhoneNumber = $("#inputPhoneNumber");
-  var inputConfirmPassword = $("#inputConfirmPassword");
-  var signupForm = $("#signupForm");
+  $("#goalForm").on("submit", newGoal);
 
-  $(signupForm).on("submit", newUserSubmit);
-
-  function newUserSubmit(event) {
+  function newGoal(event) {
     event.preventDefault();
-    var newUser = {
-      username: inputUsername.val().trim(),
-      email: inputEmail.val().trim(),
-      password: inputPassword.val().trim(),
-      // phoneNumber: inputPhoneNumber.val().trim(),
+
+    var newGoal = {
+      goalName: $("#title").val().trim(),
+      description: $("#description").val().trim(),
+      oneTime: $("input[name=goalType]:checked").val(),
+      startDate: $("#startDate").val().trim(),
+      refereeEmail: $("#refEmail").val().trim(),
+      duration: $("#duration").val().trim(),
     }
 
-    if (newUser.password != inputConfirmPassword.val().trim()) {
-      alert("Password doesn't match");
-    } else {
-      submitUser(newUser);
+    var valid = isValid(newGoal)
+
+    if (!valid) {
+      return console.log("not valid input")
     }
+    
+    $.post("/api/challenge", newGoal, () => {
+      console.log(`${newGoal} posted to server`)
+    })
   }
-  function submitUser(user) {
-    $.post("/api/user", user, function () {
-      alert(user.username + ", your account has been created")
-      window.location.href = "/login";
-    });
+
+  function isValid(data) {
+    var valid = true
+    for (var i = 0; i < data.length; i++) {
+      if (data[i] === null || "undefined" || ""){
+        valid = false
+      }
+    }
+
+    return valid
+  }
+
+  function uploadPhoto() {
+    let storageRef = firebase.storage().ref('stakes')
+    let fileUpload = document.getElementById("stake")
+  
+    fileUpload.addEventListener('change', function(evt) {
+        let firstFile = evt.target.files[0] // upload the first file only
+        storageRef.put(firstFile)
+    })  
   }
 });

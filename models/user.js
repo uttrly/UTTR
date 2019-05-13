@@ -1,32 +1,28 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   //Allowing Null for everything but email as a `User` may be created when referee email is provided.
-  var User = sequelize.define("User", {
+  var User = sequelize.define("user", {
+    id: {
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isAlpha: true,
-      }
+      allowNull: false
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isAlpha: true,
-      }
-    },    
+      allowNull: false
+    },
     username: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isAlphanumeric: true,
-        len: [5, 30]
-      }
+      allowNull: false
+    },
+    about: {
+      type: DataTypes.TEXT
     },
     email: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         isEmail: true
@@ -34,29 +30,33 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [6, 10]
-      }
+      allowNull: false
     },
-    phoneNumber: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        isInt: true,
-        len: [10]
-      }
-    }
+    // phoneNumber: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   validate: {
+    //     isInt: true,
+    //   }
+    // },
+    last_login: {
+      type: DataTypes.DATE
+    },
+    status: {
+      type: DataTypes.ENUM('active', 'inactive'),
+      defaultValue: 'active'
+    },
+
   });
 
-  User.associate = function(models) {
+  User.associate = function (models) {
     User.belongsToMany(models.Goal, {
       through: {
         model: "userGoals",
         unique: false
       },
       foreignKey: "UserId",
-    })  
+    })
   };
 
 

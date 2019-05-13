@@ -1,109 +1,55 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-    <a class="navbar-brand mr-1" href="#">UTTR</a>
-    <ul class="navbar-nav ml-auto ml-md-0">
-      <!-- logout option -->
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-        </div>
-      </li>
-    </ul>
-</nav>
-
-
 {{!-- create goal form  --}}
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-10 col-xl-9 mx-auto">
-        <div class="card card-signin flex-row my-5"> 
-          <div class="card-body">
-            <h5 class="card-title text-center">Create a Challenge :</h5>
-
-                  <form>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Title : </label>
-                      <input type="name" class="form-control" id="inputTitle" aria-describedby="goalTitle" placeholder="Enter Title">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Description : </label>
-                    <textarea class="form-control" id="description"></textarea>
-                    </div>
-                    <fieldset class="form-group">
-                      <div class="row">
-                        <legend class="col-form-label col-md-2 pt-0">Commitment Type : </legend>
-                        <div class="col-sm-10">
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="onGoing" value="option1" checked>
-                            <label class="form-check-label"> On Going </label>
-                          </div>
-                          <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="oneShot" value="option2">
-                            <label class="form-check-label"> One Shot </label>
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-
-                      <div class="form-group">
-                        <label for="inputStartDate" class="col-2 col-form-label">Start Date : </label>
-                        <div class="col-10">
-                          <input class="form-control" type="date" value="2019-01-18" id="inputStartDate">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
-                          <label for="duration" class="col-2 col-form-label">Duration : </label>
-                          <div class="col-10">
-                            <input class="form-control" type="number" value="500" id="inputDuration">
-                          </div>
-                      </div>
-
-                      <div class="form-group">
-                        <label for="refereeEmail">Referee Email Address : </label>
-                        <input type="email" class="form-control" id="inputRefEmail" aria-describedby="emailHelp" placeholder="Enter Referee Email">
-                      </div>
-
-                    <button type="submit" class="btn btn-dark"><a href="/dashboard">Submit</a></button>
-                </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-          <!-- Sticky Footer -->
-          <footer class="sticky-footer">
-            <div class="container my-auto">
-              <div class="copyright text-center my-auto">
-                <span>Copyright © UTTR 2019</span>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10 col-xl-9 mx-auto">
+      <div class="card card-signin flex-row my-5"> 
+        <div class="card-body">
+          <h3 class="card-title text-center">Create a Challenge</h3>
+          <form id="goalForm">
+              <div class="form-group">
+                <label>Title : </label>
+                <input type="name" class="form-control" id="title" aria-describedby="goalTitle" placeholder="Enter Title">
               </div>
-            </div>
-          </footer>
+              <div class="form-group">
+                <label>Description : </label>
+              <textarea class="form-control" id="description"></textarea>
+              </div>
+              <fieldset class="form-group">
+                <div class="row">
+                  <legend class="col-form-label col-md-3 pt-0">Commitment Type : </legend>
+                  <div class="form-check col-md-2">
+                    <input class="form-check-input" type="radio" name="goalType" id="onGoing" value="false" checked>
+                    <label class="form-check-label">On Going</label>
+                  </div>
+                  <div class="form-check col-md-2">
+                    <input class="form-check-input" type="radio" name="goalType" id="oneShot" value="true">
+                    <label class="form-check-label">One Shot</label>
+                  </div>
+                </div>
+              </fieldset>
 
+                <div class="form-group">
+                  <label for="inputStartDate">Start Date :</label>
+                    <input class="form-control" type="date" id="startDate">
+                </div>
 
-          
-    <!-- Logout Modal-->
-  <div class="modal" tabindex="-1" role="dialog" id="logoutModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Log Out</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Select "Yes" if you are ready to end your session</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Yes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <div class="form-group">
+                    <label for="duration">Duration :</label>
+                      <input class="form-control" type="number" placeholder="(in weeks)" id="duration">
+                </div>
+
+                <div class="form-group">
+                  <label for="refereeEmail">Referee Email Address :</label>
+                  <input type="email" class="form-control" id="refEmail" aria-describedby="emailHelp" placeholder="Enter Referee Email">
+                </div>
+                <div class="form-group">
+                  <label for="stake">Stake :</label>
+                  <input type="file" class="form-control" id="stake">
+                </div>
+
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>

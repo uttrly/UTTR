@@ -19,16 +19,19 @@ $(document).ready(function () {
       // phoneNumber: inputPhoneNumber.val().trim(),
     }
 
+
     if (newUser.password != inputConfirmPassword.val().trim()) {
       alert("Password doesn't match");
     } else {
       submitUser(newUser);
     }
   }
+
   function submitUser(user) {
     $.post("/api/user", user, function () {
       alert(user.username + ", your account has been created")
       window.location.href = "/login";
     });
   }
+
 });

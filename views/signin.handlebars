@@ -1,0 +1,36 @@
+ {{!-- login form --}}
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-login my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Log In</h5>
+
+
+            <form class="form-signin" id="signin" name="signin" method="post" action="/signin">
+              <div class="form-label-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" placeholder="Email address" name="email" required autofocus>
+              </div>
+
+              <div class="form-label-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="password" required>
+              </div>
+
+              <input class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" value="Sign In" />
+
+              <a class="d-block text-center mt-2 small" href="/signup">Sign Up Here</a>
+              <hr class="my-4">
+
+            {{!-- facebook and google login option --}}
+
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Login with Google</button>
+              <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Login with Facebook</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

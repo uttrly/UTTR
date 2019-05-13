@@ -67,11 +67,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     stake: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: true,
-        notEmpty: true
-      }
+      // allowNull: false,
+      // validate: {
+      //   notNull: true,
+      //   notEmpty: true
+      // }
     },    
   });
 
@@ -87,11 +87,9 @@ module.exports = function(sequelize, DataTypes) {
 
   Goal.associate = function(models) {
     Goal.hasMany(models.Comment);
-  };
-
-  Goal.associate = function(models) {
     Goal.hasMany(models.Report);
   };
+
 
   return Goal;
 };
