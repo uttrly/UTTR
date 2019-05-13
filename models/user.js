@@ -30,15 +30,12 @@ module.exports = function (sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
-    // phoneNumber: {
-    //   type: DataTypes.INTEGER,
-    //   allowNull: false,
-    //   validate: {
-    //     isInt: true,
-    //   }
-    // },
+    phoneNumber: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     last_login: {
       type: DataTypes.DATE
     },
