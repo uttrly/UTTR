@@ -1,4 +1,6 @@
 var authController = require('../controllers/authcontroller.js');
+var db = require("../models");
+
 
 module.exports = function (app, passport) {
 
@@ -17,6 +19,9 @@ module.exports = function (app, passport) {
     app.get("/createGoal", isLoggedIn, authController.createGoal)
 
     app.post("/api/challenge", isLoggedIn, authController.newChallenge)
+
+    app.post("/api/comment", isLoggedIn, authController.addComment);
+
     app.post("/api/report", isLoggedIn, authController.report)
 
     // Get route for singleGoal
@@ -27,12 +32,14 @@ module.exports = function (app, passport) {
             where: {
                 id: goalId
             },
-            include: [{ all: true }],
+            include: [{ model: db.Report }],
+
             raw: true
         }).then((data) => {
-            console.log(data)
+            console.log(data);
             var refereeEmail = data[0].refereeEmail
             var report = []
+
             var userId = req.user.id
             var done
 
@@ -54,18 +61,17 @@ module.exports = function (app, passport) {
                         week: data[i]["Reports.week"],
                         successfull: data[i]["Reports.sucess"]
                     }
-
                     report.push(reportObj)
                 }
 
-                if (data[i]["Comments.id"] !== null) {
-                    var commentsObject = {
-                        week: data[i]["Comments.text"],
-                        successfull: data[i]["Reports.sucess"]
-                    }
-
-                    comments.push(commentsObject)
-                }
+                // if (data[i]["Comments.id"] !== null) {
+                //     var commentsObject = {
+                //         text: data[i]["Comments.text"],
+                //         username: data[i]["Comments.username"],
+                //         createdAt: data[i]["Comments.createdAt"]
+                //     }
+                //     comment.push(commentsObject)
+                // }
 
             }
 
@@ -78,6 +84,7 @@ module.exports = function (app, passport) {
                     description: data[0].description
                 },
                 report,
+                // comment,
                 userName: req.user.firstName + " " + req.user.lastName,
                 progressperc: progressperc
             };
@@ -119,10 +126,46 @@ module.exports = function (app, passport) {
 
                 hbsObject.done = done;
 
-                console.log(hbsObject)
-                res.render("challenge", hbsObject)
+
+
+
+
+                // comment ===================================================================
+
+                db.Comment.findAll({
+                    where: {
+                        GoalId: goalId
+                    }
+                }).then(function (data) {
+                    var comment = []
+                    console.log("====================================")
+                    console.log(data)
+                    for (var i = 0; i < data.length; i++) {
+                        var commentOBJ = {
+                            text: data[i].text,
+                            username: data[i].username,
+                            createdAt: data[i].createdAt,
+                            // GoalId: goalId
+                        }
+                        comment.push(commentOBJ);
+                    }
+                    hbsObject.comment = comment;
+                    console.log("====================================")
+                    // console.log(comment)
+                    console.log(hbsObject)
+                    res.render("challenge", hbsObject);
+
+                })
+                // end ================
+
+
+
+                // console.log(hbsObject)
+                //res.render("challenge", hbsObject)
 
             })
+
+
 
         })
     })

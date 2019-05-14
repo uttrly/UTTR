@@ -7,7 +7,7 @@ var passport = require("passport");
 var session = require("express-session");
 
 
-var PORT = process.env.PORT || 6500;
+var PORT = process.env.PORT || 7200;
 
 // for body parser 
 app.use(bodyParser.urlencoded({ extended: true }));

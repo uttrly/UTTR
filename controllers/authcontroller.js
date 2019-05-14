@@ -22,7 +22,7 @@ exports.dashboard = function (req, res) {
 
     //console.log(points)
     switch (req.params.status) {
-        case "referee":
+        case "referee": omm
             // code block
             runSearch(req.user.id, 0, "Referee")
             break;
@@ -34,8 +34,6 @@ exports.dashboard = function (req, res) {
             // code block
             runSearch(req.user.id, 0, "Owner")
     }
-
-
 
     function runSearch(id, status, relationship) {
         db.user.findAll({
@@ -132,7 +130,7 @@ exports.report = function (req, res) {
         // db.Report.findAll({
         //     attributes : 
         //         ['week'],
-    
+
         //     where: {
         //         GoalId: goalId
         //     },raw: true
@@ -143,13 +141,34 @@ exports.report = function (req, res) {
         // })
 
         if (data !== "" || data !== null) {
-           db.Report.create(report).then(function (){
-               res.send({ redirect: "/challenge/" + goalId })
-           })
+            db.Report.create(report).then(function () {
+                res.send({ redirect: "/challenge/" + goalId })
+            })
         }
     });
 }
 
+// ========================== comment =====================
+exports.addComment = function (req, res) {
+    var GoalId = req.body.GoalId;
+
+    db.Goal.findOne({
+        where: {
+            id: GoalId
+        }
+    }).then(function (data) {
+        console.log(data);
+        if (data !== "" || data !== null) {
+            db.Comment.create(req.body).then(function (commentdb) {
+                res.send({ redirect: "/challenge/" + GoalId })
+                //res.json(commentdb);
+
+            })
+        }
+
+    })
+}
+// end =========================================================
 
 exports.createGoal = function (req, res) {
     res.render("createGoal", { userName: req.user.firstName + " " + req.user.lastName })

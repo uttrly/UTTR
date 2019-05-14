@@ -36,20 +36,35 @@
         data-target="#centralModalSm">Add a Report</button>
       {{/if}}
 
-
-
     </div>
 
     {{!-- comments --}}
-    <div class="card mb-3">
-      <div class="card-header">
-        Comments :
-      </div>
-      <div class="card-body">
-        {{!-- comments will go here --}}
-      </div>
-    </div>
-  </div>
+            <div class="card mb-3">
+              <div class="card-header"> Comments : </div>
+              <div class="card-body">
+                {{#each comment}}
+                <div class="list-group-item list-group-item-action flex-column align-items-start">
+                  <p>{{text}}</p>
+                  <small> Added by : {{username}} </small> <br>
+                  <small> Created at : {{createdAt}} </small>
+                  {{!-- <img src="{{photo}}" alt="progress-photo"> --}}
+                </div>
+                {{/each}}
+              <form id="commentForm">
+                <div class="form-group">
+                    <label for="comment">Comment : </label>
+                    <textarea class="form-control" rows="2" id="comment"></textarea>
+                    <label for="author"> Author : </label>
+                    <input type="text" id="author">
+                    <button type="submit" class="btn btn-dark" id="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <a href="/dashboard">Go back to dashboard</a>
+
+
 
   <!-- Central Modal Small -->
   <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
