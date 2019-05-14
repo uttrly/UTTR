@@ -124,3 +124,29 @@ exports.newChallenge = function (req, res) {
         res.send({redirect: "/dashboard"})
     })
 }
+
+exports.addRefToUserGoals = function (req, res, next) {
+    console.log("adding ref to user")
+    var userEmail = req.user.email
+    
+    db.Goal.findAll({
+        where: {
+            refereeEmail: userEmail
+        }
+    }).then(function(data) {
+        console.log(data)
+        data.forEach(element => {
+            var userGoalData = {
+                GoalId: element.dataValues.id,
+                UserId: req.user.id,
+                relationship: "Referee"
+            } 
+
+            console.log(userGoalData)
+                db.userGoals.findOrCreate({
+                    where: userGoalData
+                })
+        });
+        next();
+    })
+}
