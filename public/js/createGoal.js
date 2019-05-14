@@ -28,23 +28,24 @@ $(document).ready(function () {
 
   function isValid(data) {
     var valid = true
-    for (var i = 0; i < data.length; i++) {
-      if (data[i] === null || "undefined" || ""){
+    var dataValues = Object.values(data)
+    for(var i = 0; i < dataValues.length; i++){
+      if (dataValues[i] === ""){
         valid = false
       }
     }
-
     return valid
-  }
-
+  };
+  
   function uploadPhoto(event) {
     event.preventDefault()
     var photo = document.getElementById('stake').files[0]
     var fileName = uuidv4()
-
     var stakeStorage = defaultStorage.ref(fileName)
     stakeStorage.put(photo).then(function(){
-      newGoal(fileName)
+      defaultStorage.ref().child(fileName).getDownloadURL().then(function (url){
+        newGoal(url)
+      })
     })
 
   }
