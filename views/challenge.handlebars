@@ -1,47 +1,91 @@
-
-
-
 <div id="content-wrapper">
-          <div class="container-fluid">
-           <h3>Challenge : </h3>
+  <div class="container">
+    <h3>Challenge : {{goal.goalName}} </h3>
 
-            <div class="card mb-3">
-              <div class="card-header">
-                Description :
-                </div>
-              <div class="card-body">
-                  <p> description of the challenge </p>
-                  <div class="progress">
-                      <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"> </div>
-                  </div>  
-              </div>
-            </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        Description :
+      </div>
+      <div class="card-body">
+        <p> {{goal.description}} </p>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+            style="width:{{progressperc}}%"> </div>
+        </div>
+      </div>
+    </div>
 
-            {{!-- report --}}
-            <div class="card mb-3">
-              <div class="card-header">
-                Report :
-                </div>
-              <div class="card-body">
-                        {{#each report}}
-                        <div class="card mb-3">
-                          <div class="card-body"> 
-                            <p>{{challengeTitle}}</p>
-                            <p>{{#if successfull}} successfull {{else}} not successfull {{/if}} </p>
-                          </div>
-                        </div>
-                        {{/each}}
-            </div>
-            <button> Add a report </button>
+    {{!-- report --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        Report :
+      </div>
+      <div class="card-body">
+        {{#each report}}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h6>Week: {{week}}</h6>
+            <p>{{#if successfull}} successfull {{else}} not successfull {{/if}} </p>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+      {{#if done}}
+      {{else}}
+      <button type="button" class="btn btn-dark waves-effect waves-light" data-toggle="modal"
+        data-target="#centralModalSm">Add a Report</button>
+      {{/if}}
 
-            </div>
 
-            {{!-- comments --}}
-            <div class="card mb-3">
-              <div class="card-header">
-                Comments :
-                </div>
-              <div class="card-body">
-                  {{!-- comments will go here --}}
-              </div>
-            </div>
+
+    </div>
+
+    {{!-- comments --}}
+    <div class="card mb-3">
+      <div class="card-header">
+        Comments :
+      </div>
+      <div class="card-body">
+        {{!-- comments will go here --}}
+      </div>
+    </div>
+  </div>
+
+  <!-- Central Modal Small -->
+  <div class="modal fade" id="centralModalSm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+
+    <!-- Change class .modal-sm to change the size of the modal -->
+    <div class="modal-dialog modal-sm" role="document">
+
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">Report</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Group of default radios - option 1 -->
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="defaultGroupExample1" value="1" name="success" checked>
+            <label class="custom-control-label" for="defaultGroupExample1">Successfull</label>
+          </div>
+
+          <!-- Group of default radios - option 2 -->
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="defaultGroupExample2" value="0" name="success">
+            <label class="custom-control-label" for="defaultGroupExample2">Not Successfull</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary btn-sm" id="submitSuccess">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Central Modal Small -->
+
+</div>
