@@ -21,8 +21,14 @@ app.use(express.static("public"));
 
 // for passport
 app.use(
-  session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }),
+  session({
+     secret: 'keyboard cat', 
+     resave: true, 
+     saveUninitialized: true,
+     proxy: true
+    }),
 );
+app.enable('trust proxy');
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
