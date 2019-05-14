@@ -4,9 +4,9 @@ module.exports = function (app) {
   app.get("/", function (req, res) {
     res.render("home");
   });
-  // app.get("/login", function (req, res) {
-  //   res.render("login");
-  // });
+  app.get("/learnmore", function (req, res) {
+    res.render("learnmore");
+  });
   // app.get("/signup", function (req, res) {
   //   res.render("signup");
   // });
