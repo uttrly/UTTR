@@ -167,7 +167,6 @@ exports.newChallenge = function (req, res) {
             }
             db.userGoals.create(relationshipData)
         }).then(() => {
-
             res.send({ redirect: "/dashboard" })
         })
 }
