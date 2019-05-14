@@ -20,7 +20,7 @@ exports.dashboard = function (req, res) {
 
     var points;
 
-//console.log(points)
+    //console.log(points)
     switch (req.params.status) {
         case "referee":
             // code block
@@ -86,12 +86,12 @@ exports.dashboard = function (req, res) {
                 userName: req.user.firstName + " " + req.user.lastName,
                 owner: owner
             };
-            db.sequelize.query('select sum(points) as points from uttrdb.usergoals u join uttrdb.goals g on u.goalid = g.id where UserId=? and relationship = "Owner";',{replacements: [req.user.id]}).then(([results, metadata]) => {
+            db.sequelize.query('select sum(points) as points from uttrdb.usergoals u join uttrdb.goals g on u.goalid = g.id where UserId=? and relationship = "Owner";', { replacements: [req.user.id] }).then(([results, metadata]) => {
                 console.log(results[0].points)
-                hbsObject.points =  results[0].points;
+                hbsObject.points = results[0].points;
                 console.log(hbsObject)
                 res.render('dashboard', hbsObject)
-              })
+            })
 
         });
     }
@@ -105,22 +105,69 @@ exports.signout = function (req, res) {
 
 }
 
+exports.report = function (req, res) {
+    //console.log(req)
+    var userId = req.user.id
+    var userEmail = req.user.email
+    var success = req.body.success
+    var goalId = req.body.goalId
+    var week = 3
+    var authorType = 1
+
+    db.Goal.findOne({
+        where: {
+            refereeEmail: userEmail
+        }
+    }).then(function (data) {
+        console.log(data)
+
+        var report = {
+            sucess: success,
+            authorType: authorType,
+            userId: userId,
+            week: week,
+            GoalId: goalId
+        }
+
+        // db.Report.findAll({
+        //     attributes : 
+        //         ['week'],
+    
+        //     where: {
+        //         GoalId: goalId
+        //     },raw: true
+        // }).then(function (data){
+
+
+        //     console.log(data)
+        // })
+
+        if (data !== "" || data !== null) {
+           db.Report.create(report).then(function (){
+               res.send({ redirect: "/challenge/" + goalId })
+           })
+        }
+    });
+}
+
+
 exports.createGoal = function (req, res) {
-    res.render("createGoal")
+    res.render("createGoal", { userName: req.user.firstName + " " + req.user.lastName })
 }
 
 exports.newChallenge = function (req, res) {
     db.Goal.create(req.body)
-    .then((goal) => {
-      console.log(req);
-      console.log(`goal added`)
-      var relationshipData = {
-          GoalId: goal.dataValues.id,
-          UserId: req.user.id,
-          relationship: "Owner"
-      }
-      db.userGoals.create(relationshipData)
-    }).then(() =>{
-        res.send({redirect: "/dashboard"})
-    })
+        .then((goal) => {
+            console.log(req);
+            console.log(`goal added`)
+            var relationshipData = {
+                GoalId: goal.dataValues.id,
+                UserId: req.user.id,
+                relationship: "Owner"
+            }
+            db.userGoals.create(relationshipData)
+        }).then(() => {
+
+            res.send({ redirect: "/dashboard" })
+        })
 }
