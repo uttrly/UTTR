@@ -2,24 +2,25 @@ const SparkPost = require('sparkpost');
 const client = new SparkPost("2b862987dfc382161bbc77bf1bf8d6773db93dba");
 const db = require("../models");
 
-let email = {}
+let email  = {}
 
 
-email.emailQueryUponFail = (id) => {
+module.exports.emailQueryUponFail = function (id) {
+  var goalId = id
     db.Goal.findOne({
         attributes: [ 'goalName', 'stake', 'refereeEmail'],
-        where: {id: id},
+        where: {id: goalId},
     })
     .then((data) => {
         let goalName = data.dataValues.goalName
         let stakeURL = data.dataValues.stake
         let refEmail = data.dataValues.refereeEmail
 
-        email.sendEmailOnFail(goalName, stakeURL, refEmail)
+        sendEmailOnFail(goalName, stakeURL, refEmail)
     })
 }
 
-email.sendEmailOnFail = (goalName, stakeURL, refEmail) => {
+sendEmailOnFail = (goalName, stakeURL, refEmail) => {
     client.transmissions.send({
         options: {
           sandbox: true
@@ -43,7 +44,7 @@ email.sendEmailOnFail = (goalName, stakeURL, refEmail) => {
       });
 }
 
-email.emailQueryUponFail(12)
+//emailQueryUponFail(12)
 
 
-module.exports = email
+//module.exports = email

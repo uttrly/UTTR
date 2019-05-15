@@ -1,4 +1,7 @@
 var db = require("../models");
+
+var sendEmail = require("./email")
+
 var exports = module.exports = {}
 // models
 
@@ -22,7 +25,7 @@ exports.dashboard = function (req, res) {
 
     //console.log(points)
     switch (req.params.status) {
-        case "referee": omm
+        case "referee":
             // code block
             runSearch(req.user.id, 0, "Referee")
             break;
@@ -47,10 +50,14 @@ exports.dashboard = function (req, res) {
                     status: status
                 },
                 through: {
-                    where: { UserId: req.user.id, relationship: relationship }
+                    where: {
+                        UserId: req.user.id,
+                        relationship: relationship
+                    }
 
                 }
-            }], raw: true
+            }],
+            raw: true
         }).then(function (data) {
 
             var dataArray = [];
@@ -79,12 +86,13 @@ exports.dashboard = function (req, res) {
 
             //console.log(dataArray)
             var hbsObject = {
-                goals:
-                    dataArray,
+                goals: dataArray,
                 userName: req.user.firstName + " " + req.user.lastName,
                 owner: owner
             };
-            db.sequelize.query('select sum(points) as points from uttrdb.usergoals u join uttrdb.goals g on u.goalid = g.id where UserId=? and relationship = "Owner";', { replacements: [req.user.id] }).then(([results, metadata]) => {
+            db.sequelize.query('select sum(points) as points from usergoals u join goals g on u.goalid = g.id where UserId=? and relationship = "Owner";', {
+                replacements: [req.user.id]
+            }).then(([results, metadata]) => {
                 console.log(results[0].points)
                 hbsObject.points = results[0].points;
                 console.log(hbsObject)
@@ -109,15 +117,25 @@ exports.report = function (req, res) {
     var userEmail = req.user.email
     var success = req.body.success
     var goalId = req.body.goalId
-    var week = 3
+    //var week = 3
     var authorType = 1
 
     db.Goal.findOne({
         where: {
-            refereeEmail: userEmail
+            refereeEmail: userEmail,
+            id: goalId
         }
     }).then(function (data) {
         console.log(data)
+
+        var week = calculateWeek(data.startDate)
+        var duration = data.duration
+        var points = data.points
+        var oneTime = data.oneTime
+
+        if (oneTime == 1) {
+            week = 1
+        }
 
         var report = {
             sucess: success,
@@ -127,22 +145,76 @@ exports.report = function (req, res) {
             GoalId: goalId
         }
 
-        // db.Report.findAll({
-        //     attributes : 
-        //         ['week'],
 
-        //     where: {
-        //         GoalId: goalId
-        //     },raw: true
-        // }).then(function (data){
-
-
-        //     console.log(data)
-        // })
 
         if (data !== "" || data !== null) {
+            if (success == "1") {
+                db.Goal.update({
+                    points: points + 7,
+                }, {
+                        where: {
+                            id: goalId
+                        },
+                        returning: true,
+                        plain: true
+                    })
+                    .then(function (result) {
+                        console.log("updated")
+                        console.log(result);
+
+                    });
+            }
+
+
+
             db.Report.create(report).then(function () {
-                res.send({ redirect: "/challenge/" + goalId })
+
+                if (week == duration || oneTime == 1) {
+                    db.Report.findAll({
+                        attributes:
+                            ['sucess'],
+
+                        where: {
+                            GoalId: goalId
+                        }, raw: true
+                    }).then(function (data) {
+                        console.log(data)
+                        if (oneTime == 1) {
+                            duration = 1
+                        }
+                        var totalSuccess = 0;
+                        var overallPer = 0;
+                        for (var i = 0; i < data.length; i++) {
+                            currentSuccess = data[i].sucess
+                            if (currentSuccess == 1) {
+                                totalSuccess += currentSuccess
+                            }
+                        }
+
+                        overallPer = parseInt(totalSuccess) / parseInt(duration) * 100
+
+                        console.log("overall" + overallPer)
+
+                        if (overallPer < 80) {
+                            console.log("Sending out email")
+                            sendEmail.emailQueryUponFail(goalId)
+                        }
+
+                        db.Goal.update({
+                            status: 1,
+                        }, {
+                                where: {
+                                    id: goalId
+                                },
+                                returning: true,
+                                plain: true
+                            })
+                    });
+
+                }
+                res.send({
+                    redirect: "/challenge/" + goalId
+                })
             })
         }
     });
@@ -160,7 +232,9 @@ exports.addComment = function (req, res) {
         console.log(data);
         if (data !== "" || data !== null) {
             db.Comment.create(req.body).then(function (commentdb) {
-                res.send({ redirect: "/challenge/" + GoalId })
+                res.send({
+                    redirect: "/challenge/" + GoalId
+                })
                 //res.json(commentdb);
 
             })
@@ -171,7 +245,9 @@ exports.addComment = function (req, res) {
 // end =========================================================
 
 exports.createGoal = function (req, res) {
-    res.render("createGoal", { userName: req.user.firstName + " " + req.user.lastName })
+    res.render("createGoal", {
+        userName: req.user.firstName + " " + req.user.lastName
+    })
 }
 
 exports.newChallenge = function (req, res) {
@@ -186,7 +262,9 @@ exports.newChallenge = function (req, res) {
             }
             db.userGoals.create(relationshipData)
         }).then(() => {
-            res.send({ redirect: "/dashboard" })
+            res.send({
+                redirect: "/dashboard"
+            })
         })
 }
 
@@ -214,4 +292,11 @@ exports.addRefToUserGoals = function (req, res, next) {
         });
         next();
     })
+}
+
+function calculateWeek(startDate) {
+    var date1 = new Date(startDate);
+    var date2 = new Date(new Date());
+    var diffWeek = parseInt((date2 - date1) / (24 * 3600 * 1000 * 7)); //gives day difference 
+    return diffWeek;
 }
