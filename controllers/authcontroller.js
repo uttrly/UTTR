@@ -84,13 +84,14 @@ exports.dashboard = function (req, res) {
                 userName: req.user.firstName + " " + req.user.lastName,
                 owner: owner
             };
-            // db.sequelize.query('select sum(points) as points from uttrdb.usergoals u join uttrdb.goals g on u.goalid = g.id where UserId=? and relationship = "Owner";', { replacements: [req.user.id] }).then(([results, metadata]) => {
-            //     console.log(results[0].points)
-            //     hbsObject.points = results[0].points;
-            //     console.log(hbsObject)
-            //     res.render('dashboard', hbsObject)
-            // })
-            res.render('dashboard',hbsObject)
+
+            db.sequelize.query('select sum(points) as points from usergoals u join goals g on u.goalid = g.id where UserId=? and relationship = "Owner";', { replacements: [req.user.id] }).then(([results, metadata]) => {
+                console.log(results[0].points)
+                hbsObject.points = results[0].points;
+                console.log(hbsObject)
+                res.render('dashboard', hbsObject)
+            })
+            // res.render('dashboard',hbsObject)
 
         });
     }
