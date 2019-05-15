@@ -85,27 +85,26 @@ exports.dashboard = function (req, res) {
                 owner: owner
             };
 
-            db.user.findAll({
-                attributes: {
-                    include: [[db.sequelize.fn('sum', db.sequelize.col('goals.points')), "points"]]
-                },
-                where: {
-                    Id: id
-                },
-                include: [{
-                    model: db.Goal,
-                    through: {
-                        where: { UserId: req.user.id, relationship: "Owner" }    
-                    }
-                }], raw: true
-            }).then(function (data) {
-                console.log(data[0].points)
-                hbsObject.points = data[0].points;
-                console.log(hbsObject)
-                res.render('dashboard', hbsObject)
-
-            })
-
+            // db.user.findAll({
+            //     attributes: {
+            //         include: [[db.sequelize.fn('sum', db.sequelize.col('goals.points')), "points"]]
+            //     },
+            //     where: {
+            //         Id: id
+            //     },
+            //     include: [{
+            //         model: db.Goal,
+            //         through: {
+            //             where: { UserId: req.user.id, relationship: "Owner" }    
+            //         }
+            //     }], raw: true
+            // }).then(function (data) {
+            //     console.log(data[0].points)
+            //     hbsObject.points = data[0].points;
+            //     console.log(hbsObject)
+            //     res.render('dashboard', hbsObject)
+            // })
+            res.render('dashboard',hbsObject)
         });
     }
 }
