@@ -21,16 +21,17 @@ app.use(express.static("public"));
 
 
 // //for passport
+//this was sarah original
 // app.use(
 //   session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }),
 // );
 
+//Sharon tried this method before 
 var MemoryStore = require('session-memory-store')(session);
 
 app.use(cookieParser());
 
 app.use(session({
-  name: 'JSESSION',
   secret: 'keyboard cat',
   store: new MemoryStore(),
   resave: true,
