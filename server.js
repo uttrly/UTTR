@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var passport = require("passport");
 var session = require("express-session");
+var cookieParser = require('cookie-parser');
 
 
 var PORT = process.env.PORT || 6500;
@@ -20,9 +21,21 @@ app.use(express.static("public"));
 
 
 // for passport
-app.use(
-  session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }),
-);
+// app.use(
+//   session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }),
+// );
+var MemoryStore = require('session-memory-store')(session);
+
+app.use(cookieParser());
+
+app.use(session({
+  name: 'JSESSION',
+  secret: 'keyboard cat',
+  store: new MemoryStore(),
+  resave: true,
+  saveUninitialized: true
+}));
+
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 

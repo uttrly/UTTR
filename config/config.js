@@ -1,3 +1,4 @@
+module.exports =
 {
   "development": {
     "username": "root",
@@ -15,7 +16,8 @@
     "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "rtzsaka6vivj2zp1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com"
+    "use_env_variable": "JAWSDB_URL",
+    "dialect": "mysql"
   }
 
 }
