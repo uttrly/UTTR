@@ -38,17 +38,18 @@ module.exports = function (app, passport) {
         }).then((data) => {
             console.log(data);
             var refereeEmail = data[0].refereeEmail
+            var oneTime = data[0].oneTime
             var report = []
 
             var userId = req.user.id
-            var done
-
 
             var duration = parseInt(data[0]["duration"])
-            var date1 = new Date(data[0]["startDate"]);
-            var date2 = new Date(new Date());
-            // var diffWeek = parseInt((date2 - date1) / (24 * 3600 * 1000 * 7)); //gives day difference 
-            var diffWeek = 4
+            var startDate = new Date(data[0]["startDate"]);
+            var todayDate = new Date(new Date());
+
+
+            var diffWeek = parseInt((todayDate - startDate) / (24 * 3600 * 1000 * 7)); //gives day difference 
+            //var diffWeek = 4
             var progressperc = diffWeek / duration * 100
 
             console.log(diffWeek)
@@ -63,15 +64,6 @@ module.exports = function (app, passport) {
                     }
                     report.push(reportObj)
                 }
-
-                // if (data[i]["Comments.id"] !== null) {
-                //     var commentsObject = {
-                //         text: data[i]["Comments.text"],
-                //         username: data[i]["Comments.username"],
-                //         createdAt: data[i]["Comments.createdAt"]
-                //     }
-                //     comment.push(commentsObject)
-                // }
 
             }
 
@@ -115,13 +107,19 @@ module.exports = function (app, passport) {
                             GoalId: goalId
                         }
                         db.Report.create(report).then(function () {
-                            //res.send({ redirect: "/challenge/" + goalId })
+                            res.redirect("/challenge/" + goalId)
                         })
-                    } else if (pos == "-1" && i == diffWeek && refereeEmail == req.user.email) {
+                    } else if ((pos == "-1" && i == diffWeek && refereeEmail == req.user.email) || oneTime == 1) {
                         done = 0
                     }
 
 
+
+                }
+
+                if (oneTime == "1" && startDate <= todayDate && refereeEmail == req.user.email && (data == null || data == "")) {
+                    console.log("testing00000000000000000")
+                    done = 0
                 }
 
                 hbsObject.done = done;
