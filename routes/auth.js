@@ -171,9 +171,9 @@ module.exports = function (app, passport) {
     })
 
 
-    app.get('/dashboard', isLoggedIn, authController.addRefToUserGoals, authController.dashboard);
+    app.get('/dashboard', isLoggedIn, /*authController.addRefToUserGoals,*/ authController.dashboard);
 
-    app.get('/dashboard/:status', isLoggedIn, authController.addRefToUserGoals, authController.dashboard);
+    app.get('/dashboard/:status', isLoggedIn, /*authController.addRefToUserGoals,*/ authController.dashboard);
 
     app.get('/signout', authController.signout);
 
