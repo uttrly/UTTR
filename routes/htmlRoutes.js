@@ -7,12 +7,9 @@ module.exports = function (app) {
   app.get("/learnmore", function (req, res) {
     res.render("learnmore");
   });
-  // app.get("/signup", function (req, res) {
-  //   res.render("signup");
-  // });
-  // app.get("/createGoal", function (req, res) {
-  //   res.render("createGoal");
-  // });
+  app.get("/aboutus", function (req, res) {
+    res.render("aboutus");
+  });
   app.get("*", function (req, res) {
     res.render("404");
   });

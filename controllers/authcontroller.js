@@ -22,7 +22,7 @@ exports.dashboard = function (req, res) {
 
     //console.log(points)
     switch (req.params.status) {
-        case "referee": omm
+        case "referee":
             // code block
             runSearch(req.user.id, 0, "Referee")
             break;
@@ -151,7 +151,6 @@ exports.report = function (req, res) {
 // ========================== comment =====================
 exports.addComment = function (req, res) {
     var GoalId = req.body.GoalId;
-
     db.Goal.findOne({
         where: {
             id: GoalId
