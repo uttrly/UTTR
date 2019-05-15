@@ -22,7 +22,7 @@ exports.dashboard = function (req, res) {
 
     //console.log(points)
     switch (req.params.status) {
-        case "referee": omm
+        case "referee":
             // code block
             runSearch(req.user.id, 0, "Referee")
             break;
