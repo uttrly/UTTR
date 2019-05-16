@@ -23,7 +23,7 @@ $(document).ready(function () {
 
     var valid = isValid(goal)
 
-    if ($("input[name=goalType]:checked").val() === "false")) {
+    if ($("input[name=goalType]:checked").val() === "false") {
       goal.duration = $("#duration").val().trim()
       valid = validateDuration(goal.duration)
     }
