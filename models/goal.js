@@ -46,7 +46,8 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notNull: true,
         notEmpty: true,
-        isInt: true
+        isInt: true,
+        min: 1
       }
     },
     points: {

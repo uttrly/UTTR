@@ -162,7 +162,8 @@ exports.challenge = function (req, res) {
             {
                 id: data[0].id,
                 goalName: data[0].goalName,
-                description: data[0].description
+                description: data[0].description,
+                startDate: startDate.toISOString().replace(/T/, " ").replace(/\..+/, '').replace(/\d\d:\d\d:\d\d/, '')
             },
             report,
             // comment,

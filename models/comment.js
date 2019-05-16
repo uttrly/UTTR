@@ -11,11 +11,6 @@ module.exports = function (sequelize, DataTypes) {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-      validate: {
-        isAlphanumeric: true,
-        len: [4, 30]
-      }
     }
   });
 
