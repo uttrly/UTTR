@@ -18,12 +18,15 @@ $(document).ready(function () {
       oneTime: $("input[name=goalType]:checked").val(),
       startDate: $("#startDate").val().trim(),
       refereeEmail: $("#refEmail").val().trim(),
-      duration: $("#duration").val().trim(),
       stake: stake
     }
 
     var valid = isValid(goal)
-    valid = validateDuration(goal.duration)
+
+    if ($("input[name=goalType]:checked".val() === "false")) {
+      goal.duration = $("#duration").val().trim()
+      valid = validateDuration(goal.duration)
+    }
     
 
     if (!valid) {
