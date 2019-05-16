@@ -42,13 +42,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     duration: {
       type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: true,
-        notEmpty: true,
-        isInt: true,
-        min: 1
-      }
+      allowNull: true
     },
     points: {
       type: DataTypes.INTEGER,
