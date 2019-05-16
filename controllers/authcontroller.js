@@ -93,7 +93,7 @@ exports.dashboard = function (req, res) {
 
             db.user.findAll({
                 attributes: {
-                    include: [[db.sequelize.fn('sum', db.sequelize.col('goals.points')), "points"]]
+                    include: [[db.sequelize.fn('sum', db.sequelize.col('points')), "points"]]
                 },
                 where: {
                     Id: id

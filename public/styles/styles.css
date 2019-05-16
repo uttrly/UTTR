@@ -62,3 +62,8 @@ background-color: aquamarine
 {
     background-color: dimgrey
 }
+
+img #logoImg {
+    max-height: calc(100vh - 114px);
+    width: auto
+}
