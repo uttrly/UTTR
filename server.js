@@ -52,7 +52,7 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // models
-var db = require("./models");
+var db = require("./models" );
 
 // passport
 require('./routes/auth.js')(app, passport);
