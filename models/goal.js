@@ -6,7 +6,6 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notNull: true,
         notEmpty: true,
-        len: [1, 30]
       }
     },
     description: {
@@ -15,7 +14,6 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notNull: true,
         notEmpty: true,
-        len: [1, 300]
       }
     },
     oneTime: {
