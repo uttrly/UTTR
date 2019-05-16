@@ -1,4 +1,12 @@
 $(document).ready(function () {
+  $("#onGoing").on("click", function (){
+    $("#durationField").removeClass("hide")
+  })
+
+  $("#oneShot").on("click", function (){
+    $("#durationField").addClass("hide")
+  })
+
   $("#goalForm").on("submit", uploadPhoto);
 
   function newGoal(stake) {
@@ -15,6 +23,8 @@ $(document).ready(function () {
     }
 
     var valid = isValid(goal)
+    valid = validateDuration(goal.duration)
+    
 
     if (!valid) {
       return console.log("not valid input")
@@ -36,6 +46,10 @@ $(document).ready(function () {
     }
     return valid
   };
+
+  function validateDuration(data) {
+    return (parseInt(data) >= 1)
+  }
   
   function uploadPhoto(event) {
     event.preventDefault()
@@ -47,7 +61,6 @@ $(document).ready(function () {
         newGoal(url)
       })
     })
-
   }
 
   //random keygen for file name
@@ -59,3 +72,4 @@ $(document).ready(function () {
   }
   
 });
+
