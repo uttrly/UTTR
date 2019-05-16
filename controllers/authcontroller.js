@@ -19,22 +19,14 @@ exports.signin = function (req, res) {
 }
 
 exports.dashboard = function (req, res) {
-    //console.log(req)
-
-    var points;
-
-    //console.log(points)
     switch (req.params.status) {
         case "referee":
-            // code block
             runSearch(req.user.id, 0, "Referee")
             break;
         case "complete":
-            // code block
             runSearch(req.user.id, 1, "Owner")
             break;
         default:
-            // code block
             runSearch(req.user.id, 0, "Owner")
     }
 
@@ -62,17 +54,17 @@ exports.dashboard = function (req, res) {
 
             var dataArray = [];
             var owner;
-            //console.log(relationship)
             if (relationship === "Owner") {
                 owner = 1
             }
-            //console.log(owner)
             for (var i = 0; i < data.length; i++) {
 
                 var duration = data[i]["Goals.duration"]
-                var date1 = new Date(data[i]["Goals.startDate"]);
-                var date2 = new Date(new Date());
-                var diffWeek = parseInt((date2 - date1) / (24 * 3600 * 1000 * 7)); //gives day difference 
+                var startDate = new Date(data[i]["Goals.startDate"]);
+
+                //var diffWeek = parseInt((date2 - date1) / (24 * 3600 * 1000 * 7)); //gives day difference 
+
+                var diffWeek = calculateWeek(startDate);
 
                 var object = {
                     id: data[i]["Goals.id"],
@@ -84,7 +76,6 @@ exports.dashboard = function (req, res) {
                 dataArray.push(object)
             }
 
-            //console.log(dataArray)
             var hbsObject = {
                 goals: dataArray,
                 userName: req.user.firstName + " " + req.user.lastName,
@@ -101,7 +92,7 @@ exports.dashboard = function (req, res) {
                 include: [{
                     model: db.Goal,
                     through: {
-                        where: { UserId: req.user.id, relationship: "Owner" }    
+                        where: { UserId: req.user.id, relationship: "Owner" }
                     }
                 }], raw: true
             }).then(function (results) {
@@ -123,13 +114,138 @@ exports.signout = function (req, res) {
 
 }
 
+
+exports.challenge = function (req, res) {
+    var goalId = req.params.id
+    console.log("/challenge/:id gets rendered")
+    db.Goal.findAll({
+        where: {
+            id: goalId
+        },
+        include: [{ model: db.Report }],
+
+        raw: true
+    }).then((data) => {
+        console.log(data);
+        var refereeEmail = data[0].refereeEmail
+        var oneTime = data[0].oneTime
+        var report = []
+
+        var userId = req.user.id
+
+        var duration = parseInt(data[0]["duration"])
+        var startDate = new Date(data[0]["startDate"]);
+        var todayDate = new Date(new Date());
+
+        var diffWeek = calculateWeek(startDate) //gives weeks difference 
+        //var diffWeek = 4
+        var progressperc = diffWeek / duration * 100
+
+        console.log(diffWeek)
+        console.log(duration)
+
+        for (var i = 0; i < data.length; i++) {
+
+            if (data[i]["Reports.id"] !== null) {
+                var reportObj = {
+                    week: data[i]["Reports.week"],
+                    successfull: data[i]["Reports.sucess"]
+                }
+                report.push(reportObj)
+            }
+
+        }
+
+
+        var hbsObject = {
+            goal:
+            {
+                id: data[0].id,
+                goalName: data[0].goalName,
+                description: data[0].description
+            },
+            report,
+            // comment,
+            userName: req.user.firstName + " " + req.user.lastName,
+            progressperc: progressperc
+        };
+
+        console.log(hbsObject)
+        db.Report.findAll({
+            attributes:
+                ['week'],
+
+            where: {
+                GoalId: goalId
+            }, raw: true,
+            order: ['week']
+        }).then(function (data) {
+            var done = 1;
+            for (var i = 1; i <= diffWeek; i++) {
+                pos = data.map(function (e) { return e.week; }).indexOf(i);
+
+                if (pos == "-1" && i < diffWeek) {
+
+                    var report = {
+                        sucess: 0,
+                        authorType: 1,
+                        userId: userId,
+                        week: i,
+                        GoalId: goalId
+                    }
+                    db.Report.create(report).then(function () {
+                        res.redirect("/challenge/" + goalId)
+                    })
+                } else if ((pos == "-1" && i == diffWeek && refereeEmail == req.user.email) || oneTime == 1) {
+                    done = 0
+                }
+
+
+
+            }
+
+            if (oneTime == "1" && startDate <= todayDate && refereeEmail == req.user.email && (data == null || data == "")) {
+                console.log("testing00000000000000000")
+                done = 0
+            }
+
+            hbsObject.done = done;
+
+            // comment ===================================================================
+
+            db.Comment.findAll({
+                where: {
+                    GoalId: goalId
+                }
+            }).then(function (data) {
+                var comment = []
+                console.log("====================================")
+                console.log(data)
+                for (var i = 0; i < data.length; i++) {
+                    var commentOBJ = {
+                        text: data[i].text,
+                        username: data[i].username,
+                        createdAt: data[i].createdAt,
+                        // GoalId: goalId
+                    }
+                    comment.push(commentOBJ);
+                }
+                hbsObject.comment = comment;
+                console.log("====================================")
+                // console.log(comment)
+                console.log(hbsObject)
+                res.render("challenge", hbsObject);
+
+            })
+        })
+    })
+}
+
 exports.report = function (req, res) {
-    //console.log(req)
     var userId = req.user.id
     var userEmail = req.user.email
     var success = req.body.success
     var goalId = req.body.goalId
-    //var week = 3
     var authorType = 1
 
     db.Goal.findOne({
@@ -235,6 +351,9 @@ exports.report = function (req, res) {
 // ========================== comment =====================
 exports.addComment = function (req, res) {
     var GoalId = req.body.GoalId;
+    var username = req.user.username
+    var body = req.body
+
     db.Goal.findOne({
         where: {
             id: GoalId
@@ -242,7 +361,8 @@ exports.addComment = function (req, res) {
     }).then(function (data) {
         console.log(data);
         if (data !== "" || data !== null) {
-            db.Comment.create(req.body).then(function (commentdb) {
+            body.username = username
+            db.Comment.create(body).then(function (commentdb) {
                 res.send({
                     redirect: "/challenge/" + GoalId
                 })

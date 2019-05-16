@@ -10,8 +10,8 @@ $(document).ready(function () {
         event.preventDefault();
         var newComment = {
             GoalId: goalId,
-            text: $("#comment").val().trim(),
-            username: $("#author").val().trim(),
+            text: $("#comment").val().trim()
+            // username: $("#author").val().trim(),
         }
 
         console.log(newComment);
@@ -19,7 +19,7 @@ $(document).ready(function () {
         submitComment(newComment);
 
         $("#comment").val("");
-        $("#author").val("");
+        // $("#author").val("");
     }
 
     function submitComment(comment) {
