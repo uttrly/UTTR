@@ -10,6 +10,9 @@ module.exports = function (app) {
   app.get("/aboutus", function (req, res) {
     res.render("aboutus");
   });
+  // app.get("/policy", function (req, res) {
+  //   res.(policy)
+  // });
   app.get("*", function (req, res) {
     res.render("404");
   });
