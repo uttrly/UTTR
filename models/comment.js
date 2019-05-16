@@ -8,14 +8,6 @@ module.exports = function (sequelize, DataTypes) {
         notEmpty: true
       }
     },
-    // photo: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   validate: {
-    //     notNull: true,
-    //     notEmpty: true
-    //   }
-    // },
     username: {
       type: DataTypes.STRING,
       allowNull: false,

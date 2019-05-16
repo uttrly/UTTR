@@ -235,7 +235,6 @@ exports.report = function (req, res) {
 // ========================== comment =====================
 exports.addComment = function (req, res) {
     var GoalId = req.body.GoalId;
-
     db.Goal.findOne({
         where: {
             id: GoalId
