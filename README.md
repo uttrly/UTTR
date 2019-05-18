@@ -100,8 +100,7 @@ Please navigate to the config file `../config/config.js` and update your develop
     "host": "localhost",
     "dialect": "mysql",
     "port": "YOUR_MYSQL_PORT"
-  },
-
+  }
 ```
 Then run the schema.sql found under `../models/schema.sql`.
 
@@ -117,7 +116,6 @@ Should you wish to deploy a production of this web app. You can use something li
     "use_env_variable": "MYSQL_DB_URL",
     "dialect": "mysql"
   }
-
 ```
 
 ## Built With
