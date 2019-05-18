@@ -38,6 +38,7 @@ MySQL
 ```
 
 ### Installing
+
 **Clone Repo + NPM Install**
 
 Fork this repo and clone a local copy via SSH or HTTPS. Then run an NPM install.
@@ -48,6 +49,7 @@ $ npm install
 ```
 
 **Set Up Firebase**
+
 Create an account on [Firebase](https://firebase.google.com/) or use your Google account. Log in.
 
 Press get started and press "Add a Project".
@@ -76,6 +78,7 @@ Look for the firebase file. `./public/js/firebase.js` and replace the content wi
 ```
 
 **Set Up SparkPost**
+
 Set up your own [Sparkpost](https://www.sparkpost.com/) account. Please follow their instructions on obtaining an API key. If you forgot to copy it. Please create another one.
 
 Locate the email.js file `../controllers/email.js` and replace the string inside `new SparkPost("YOUR_KEY_HERE")` with your API key.
@@ -87,6 +90,7 @@ Once you have your email set up. Please replace all "From:" email address in the
 *Note: our app currently is running using SparkPost's sandbox email. The limit for sending may have been reached.*
 
 **Set Up Development MySQL Database**
+
 Please navigate to the config file `../config/config.js` and update your development environment for MySQL.
 ```
   "development": {
@@ -141,6 +145,4 @@ Phouc Phan, Nirossan Vijayakumar, Sharon Chien, Sarah Sakhri
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
-Edward Apostol 
-Adrian Pearman 
-Dimitry Besson 
+Edward Apostol, Adrian Pearman, Dimitry Besson 
