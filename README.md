@@ -106,7 +106,7 @@ Then run the schema.sql found under `../models/schema.sql`.
 
 **Congratulations, you should be all set up to run this web app in development environment. See below for a quick demo.**
 
-[Demo]
+![UTTR-Demo]()
 
 ## Deployment
 
