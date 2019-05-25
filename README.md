@@ -104,9 +104,14 @@ Please navigate to the config file `../config/config.js` and update your develop
 ```
 Then run the schema.sql found under `../models/schema.sql`.
 
-**Congratulations, you should be all set up to run this web app in development environment. See below for a quick demo.**
+**Congratulations, you should be all set up to run this web app in development environment. See below for a quick demo. You can also try it out using this login.**
 
-![UTTR-Demo]()
+```
+Username: tedl@gmail.com
+Password: asdf1234
+```
+
+![UTTR-Demo](https://raw.githubusercontent.com/Kinla/UTTR/master/public/img/uttr-demo-full.gif)
 
 ## Deployment
 
