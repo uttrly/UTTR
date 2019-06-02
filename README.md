@@ -49,6 +49,7 @@ $ npm install
 ```
 
 **Set Up Firebase**
+*Current FireBase Storage is locked to our Heroku app*
 
 Create an account on [Firebase](https://firebase.google.com/) or use your Google account. Log in.
 
