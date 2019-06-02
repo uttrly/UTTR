@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-
+// make a change 
 // //for passport
 //this was sarah original
 // app.use(
@@ -52,7 +52,7 @@ app.engine(
 app.set("view engine", "handlebars");
 
 // models
-var db = require("./models" );
+var db = require("./models");
 
 // passport
 require('./routes/auth.js')(app, passport);
