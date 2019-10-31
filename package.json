@@ -21,7 +21,7 @@
     "mysql2": "^1.6.4",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "sequelize": "^5.3.0",
+    "sequelize": "^5.15.1",
     "session": "^0.1.0",
     "session-memory-store": "^1.0.0",
     "sparkpost": "^2.1.3"
